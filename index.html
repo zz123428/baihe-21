@@ -1661,7 +1661,7 @@ window.addEventListener('load',()=>{
   const gate=document.getElementById('gate');
   if(!gate) return;
   /* Date.UTC(2026,10,21,16) = 北京时间 2026-11-22 00:00:00 */
-  const UNLOCK=new Date(Date.UTC(2026,10,21,16,0,0)).getTime();
+  const UNLOCK=new Date(Date.UTC(2020,0,1,0,0,0)).getTime(); /* 临时解锁：待恢复为 Date.UTC(2026,10,21,16) */
   const START=UNLOCK-5*86400000;              /* 只用于进度条的起点：5 天前 */
   const el={
     d:document.getElementById('g-days'), h:document.getElementById('g-hours'),
