@@ -876,6 +876,103 @@ footer .sig { color:var(--fg); font-weight:600; }
   font-variant-numeric:tabular-nums;
 }
 
+/* ================================================================
+   生日门禁 — 11 月 22 日 00:00 之前只显示倒计时
+   ================================================================ */
+html.gate-locked, html.gate-locked body { overflow:hidden; }
+
+#gate {
+  position:fixed; inset:0; z-index:9000;
+  display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(1100px 620px at 50% 26%, #23103a 0%, #0d0715 52%, #000 100%);
+  transition:opacity .9s var(--ease), visibility .9s;
+}
+#gate.unlocked { opacity:0; visibility:hidden; pointer-events:none; }
+
+.gate-card {
+  width:min(560px,100%); text-align:center;
+  padding:44px 34px 38px; border-radius:28px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.06);
+  animation:gateIn 1s var(--ease) both;
+}
+@keyframes gateIn {
+  from { opacity:0; transform:translateY(26px) scale(.97); }
+  to   { opacity:1; transform:none; }
+}
+
+.gate-lock {
+  font-size:34px; line-height:1; margin-bottom:18px;
+  filter:drop-shadow(0 6px 18px rgba(191,90,242,.45));
+  animation:gateFloat 4s ease-in-out infinite;
+}
+@keyframes gateFloat {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-8px); }
+}
+
+.gate-eyebrow {
+  font-size:11px; letter-spacing:.34em; text-transform:uppercase;
+  color:#8f7aa8; margin-bottom:14px;
+}
+.gate-name {
+  font-size:clamp(34px,7vw,52px); font-weight:800; line-height:1.1; letter-spacing:.02em;
+  background:linear-gradient(120deg,#fff 10%,var(--blue) 45%,var(--accent) 72%,var(--pink) 96%);
+  background-size:200% 200%;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation:gradientShift 7s ease-in-out infinite;
+}
+.gate-sub {
+  margin-top:12px; font-size:14px; color:#a9a2b8; letter-spacing:.04em; line-height:1.7;
+}
+.gate-sub b { color:var(--pink); font-weight:700; }
+
+.gate-timer {
+  display:flex; justify-content:center; gap:clamp(8px,2.4vw,16px);
+  margin:28px 0 6px;
+}
+.gate-unit {
+  min-width:64px; padding:12px 6px 10px; border-radius:16px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.08);
+}
+.gate-unit span {
+  display:block; font-family:"SF Mono","JetBrains Mono",ui-monospace,monospace;
+  font-variant-numeric:tabular-nums;
+  font-size:clamp(22px,4.6vw,32px); font-weight:700; line-height:1;
+  background:linear-gradient(180deg,#fff,#c9b6dd);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.gate-unit em {
+  display:block; margin-top:7px; font-size:11px; font-style:normal;
+  color:#7d7590; letter-spacing:.18em;
+}
+
+.gate-bar {
+  height:3px; border-radius:99px; margin:26px auto 0; width:min(320px,80%);
+  background:rgba(255,255,255,.08); overflow:hidden;
+}
+.gate-bar i {
+  display:block; height:100%; width:0%;
+  background:linear-gradient(90deg,var(--blue),var(--accent),var(--pink));
+  border-radius:99px; transition:width 1s linear;
+}
+.gate-hint {
+  margin-top:18px; font-size:12.5px; color:#8b8398; letter-spacing:.08em;
+}
+.gate-hint b { color:#e9e2f5; font-weight:600; }
+
+@media(max-width:700px){
+  .gate-card { padding:34px 20px 30px; border-radius:22px; }
+  .gate-unit { min-width:0; flex:1; padding:10px 2px 9px; }
+  .gate-unit em { letter-spacing:.1em; font-size:10px; }
+}
+
 @media(max-width:700px){
   /* 导航：图标与文字都不换行，尽量在一屏内排下 */
   nav { font-size:10.5px; gap:0; padding:5px 6px; }
@@ -905,6 +1002,25 @@ footer .sig { color:var(--fg); font-weight:600; }
 <canvas id="glassParticles"></canvas>
 <canvas id="confetti"></canvas>
 <canvas id="rippleLayer"></canvas>
+
+<!-- ═══════════ 生日门禁 ═══════════ -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-lock">🔒</div>
+    <div class="gate-eyebrow">A Little Surprise</div>
+    <div class="gate-name">白合</div>
+    <div class="gate-sub">二十一岁的惊喜还在路上，<b id="gate-days-text">5</b> 天后见。</div>
+    <div class="gate-timer">
+      <div class="gate-unit"><span id="g-days">0</span><em>天</em></div>
+      <div class="gate-unit"><span id="g-hours">00</span><em>时</em></div>
+      <div class="gate-unit"><span id="g-mins">00</span><em>分</em></div>
+      <div class="gate-unit"><span id="g-secs">00</span><em>秒</em></div>
+    </div>
+    <div class="gate-bar"><i id="g-bar"></i></div>
+    <div class="gate-hint">11 月 22 日 00:00 准时开门 🎂</div>
+  </div>
+</div>
+<script>document.documentElement.classList.add('gate-locked');</script>
 
 <!-- 导航 -->
 <nav id="nav">
@@ -1539,7 +1655,61 @@ window.addEventListener('load',()=>{
 })();
 
 /* ================================================================
-   14. 生日倒计时 — 2026 年 11 月 22 日
+   14. 生日门禁 — 北京时间 2026-11-22 00:00 自动开门
+   ================================================================ */
+(function(){
+  const gate=document.getElementById('gate');
+  if(!gate) return;
+  /* Date.UTC(2026,10,21,16) = 北京时间 2026-11-22 00:00:00 */
+  const UNLOCK=new Date(Date.UTC(2026,10,21,16,0,0)).getTime();
+  const START=UNLOCK-5*86400000;              /* 只用于进度条的起点：5 天前 */
+  const el={
+    d:document.getElementById('g-days'), h:document.getElementById('g-hours'),
+    m:document.getElementById('g-mins'), s:document.getElementById('g-secs'),
+    bar:document.getElementById('g-bar'), txt:document.getElementById('gate-days-text')
+  };
+  const pad=n=>String(n).padStart(2,'0');
+  let done=false;
+
+  function unlock(){
+    if(done) return; done=true;
+    gate.classList.add('unlocked');
+    document.documentElement.classList.remove('gate-locked');
+    document.title='致 白合 · 21 岁生日快乐';
+    setTimeout(()=>{ gate.style.display='none'; },1200);
+    try{
+      if(window.Confetti){
+        Confetti.rain(120);
+        setTimeout(()=>Confetti.burst(innerWidth*.5,innerHeight*.35,120),450);
+      }
+    }catch(e){}
+  }
+
+  function tick(){
+    const now=Date.now();
+    let left=UNLOCK-now;
+    if(left<=0){ unlock(); return; }
+    const days=Math.floor(left/86400000); left-=days*86400000;
+    const hours=Math.floor(left/3600000); left-=hours*3600000;
+    const mins=Math.floor(left/60000); left-=mins*60000;
+    const secs=Math.floor(left/1000);
+    if(el.d) el.d.textContent=days;
+    if(el.h) el.h.textContent=pad(hours);
+    if(el.m) el.m.textContent=pad(mins);
+    if(el.s) el.s.textContent=pad(secs);
+    if(el.txt) el.txt.textContent=days;
+    if(el.bar){
+      const p=Math.max(0,Math.min(100,(now-START)/(UNLOCK-START)*100));
+      el.bar.style.width=p.toFixed(1)+'%';
+    }
+    document.title='还有 '+days+' 天 · 白合 21 岁生日快乐';
+  }
+  tick();
+  setInterval(tick,1000);
+})();
+
+/* ================================================================
+   15. 生日倒计时 — 2026 年 11 月 22 日
    ================================================================ */
 (function(){
   const BIRTH_YEAR=2026, BIRTH_MONTH=10, BIRTH_DAY=22; /* 10 = 十一月 */
