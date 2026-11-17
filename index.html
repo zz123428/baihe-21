@@ -894,6 +894,20 @@ footer .sig { color:var(--fg); font-weight:600; }
   .photo { animation:none; }
 }
 
+/* 预览模式的小徽标（只有带口令进来才出现） */
+#previewBadge {
+  position:fixed; left:16px; bottom:16px; z-index:9500;
+  display:none; align-items:center; gap:8px;
+  padding:9px 16px; border-radius:999px;
+  font-size:12px; letter-spacing:.04em; color:#e8e2f2;
+  background:rgba(191,90,242,.16);
+  border:1px solid rgba(191,90,242,.38);
+  backdrop-filter:blur(12px);
+  box-shadow:0 10px 30px -12px rgba(191,90,242,.6);
+}
+#previewBadge.on { display:inline-flex; }
+#previewBadge b { color:#f2c9ff; font-weight:700; }
+
 /* ================================================================
    生日门禁 — 11 月 22 日 00:00 之前只显示倒计时
    ================================================================ */
@@ -1712,12 +1726,36 @@ window.addEventListener('load',()=>{
   const pad=n=>String(n).padStart(2,'0');
   let done=false;
 
+  /* —— 站长预览：?k=*** 直接看完整页面（源码里只有哈希，看不到口令）—— */
+  const PREVIEW_HASH=739102197;               /* djb2('zj0822') */
+  const hash=s=>{let x=5381;for(let i=0;i<s.length;i++)x=(((x<<5)+x)+s.charCodeAt(i))>>>0;return x;};
+  let preview=false;
+  try{
+    const key=(new URLSearchParams(location.search).get('k')||'').trim();
+    if(key&&hash(key)===PREVIEW_HASH){
+      preview=true;
+      try{ sessionStorage.setItem('__pv','1'); }catch(e){}
+      if(history.replaceState) history.replaceState(null,'',location.pathname);
+    }else{
+      try{ preview=sessionStorage.getItem('__pv')==='1'; }catch(e){}
+    }
+  }catch(e){}
+
+  function showBadge(){
+    if(document.getElementById('previewBadge')) return;
+    const b=document.createElement('div');
+    b.id='previewBadge'; b.className='on';
+    b.innerHTML='👀 预览模式 · <b>11 月 22 日 00:00</b> 起对所有人开放';
+    document.body.appendChild(b);
+  }
+
   function unlock(){
     if(done) return; done=true;
     gate.classList.add('unlocked');
     document.documentElement.classList.remove('gate-locked');
     document.title='致 白合 · 21 岁生日快乐';
     setTimeout(()=>{ gate.style.display='none'; },1200);
+    if(preview){ showBadge(); return; }        /* 预览时不撒花，避免每次进来都放一次 */
     try{
       if(window.Confetti){
         Confetti.rain(120);
@@ -1726,7 +1764,10 @@ window.addEventListener('load',()=>{
     }catch(e){}
   }
 
+  if(preview) unlock();
+
   function tick(){
+    if(done) return;                 /* 已解锁就不再改标题 */
     const now=Date.now();
     let left=UNLOCK-now;
     if(left<=0){ unlock(); return; }
