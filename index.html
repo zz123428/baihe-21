@@ -876,6 +876,24 @@ footer .sig { color:var(--fg); font-weight:600; }
   font-variant-numeric:tabular-nums;
 }
 
+/* 照片骨架微光：加载完成后自动停止 */
+.photo {
+  background:linear-gradient(100deg,#121218 18%,#1e1e2a 40%,#121218 62%);
+  background-size:220% 100%;
+  animation:photoShimmer 1.9s linear infinite;
+}
+@keyframes photoShimmer {
+  from { background-position:130% 0; }
+  to   { background-position:-130% 0; }
+}
+.photo.loaded {
+  background:#111;
+  animation:none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo { animation:none; }
+}
+
 /* ================================================================
    生日门禁 — 11 月 22 日 00:00 之前只显示倒计时
    ================================================================ */
@@ -1181,44 +1199,44 @@ html.gate-locked, html.gate-locked body { overflow:hidden; }
   <div class="year-block reveal d1">
     <div class="year-head"><span class="year-num">2026</span><span class="year-desc">这一年，你二十一岁。</span></div>
     <div class="photo-grid">
-      <div class="photo wide"><img src="assets/photos/2026-1.jpg" alt="2026-1" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2026-2.jpg" alt="2026-2" loading="lazy"></div>
-      <div class="photo tall"><img src="assets/photos/2026-3.jpg" alt="2026-3" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2026-4.jpg" alt="2026-4" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2026-5.jpg" alt="2026-5" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2026-6.jpg" alt="2026-6" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2026-7.jpg" alt="2026-7" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2026-8.jpg" alt="2026-8" loading="lazy"></div>
-      <div class="photo wide"><img src="assets/photos/2026-9.jpg" alt="2026-9" loading="lazy"></div>
+      <div class="photo wide"><img src="assets/photos/m/2026-1.jpg" srcset="assets/photos/m/2026-1.jpg 760w, assets/photos/2026-1.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2026-1" width="760" height="504" loading="eager" decoding="async" data-full="assets/photos/2026-1.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2026-2.jpg" srcset="assets/photos/m/2026-2.jpg 760w, assets/photos/2026-2.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2026-2" width="570" height="760" loading="eager" decoding="async" data-full="assets/photos/2026-2.jpg"></div>
+      <div class="photo tall"><img src="assets/photos/m/2026-3.jpg" srcset="assets/photos/m/2026-3.jpg 760w, assets/photos/2026-3.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2026-3" width="570" height="760" loading="eager" decoding="async" data-full="assets/photos/2026-3.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2026-4.jpg" srcset="assets/photos/m/2026-4.jpg 760w, assets/photos/2026-4.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2026-4" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2026-4.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2026-5.jpg" srcset="assets/photos/m/2026-5.jpg 760w, assets/photos/2026-5.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2026-5" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2026-5.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2026-6.jpg" srcset="assets/photos/m/2026-6.jpg 760w, assets/photos/2026-6.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2026-6" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2026-6.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2026-7.jpg" srcset="assets/photos/m/2026-7.jpg 760w, assets/photos/2026-7.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2026-7" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2026-7.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2026-8.jpg" srcset="assets/photos/m/2026-8.jpg 760w, assets/photos/2026-8.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2026-8" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2026-8.jpg"></div>
+      <div class="photo wide"><img src="assets/photos/m/2026-9.jpg" srcset="assets/photos/m/2026-9.jpg 760w, assets/photos/2026-9.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2026-9" width="760" height="570" loading="lazy" decoding="async" data-full="assets/photos/2026-9.jpg"></div>
     </div>
   </div>
 
   <div class="year-block reveal d1">
     <div class="year-head"><span class="year-num">2025</span><span class="year-desc">再往前一年，日子慢慢有了形状。</span></div>
     <div class="photo-grid">
-      <div class="photo"><img src="assets/photos/2025-1.jpg" alt="2025-1" loading="lazy"></div>
-      <div class="photo tall"><img src="assets/photos/2025-2.jpg" alt="2025-2" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2025-3.jpg" alt="2025-3" loading="lazy"></div>
-      <div class="photo wide"><img src="assets/photos/2025-4.jpg" alt="2025-4" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2025-5.jpg" alt="2025-5" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2025-6.jpg" alt="2025-6" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2025-7.jpg" alt="2025-7" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2025-8.jpg" alt="2025-8" loading="lazy"></div>
-      <div class="photo wide"><img src="assets/photos/2025-9.jpg" alt="2025-9" loading="lazy"></div>
+      <div class="photo"><img src="assets/photos/m/2025-1.jpg" srcset="assets/photos/m/2025-1.jpg 760w, assets/photos/2025-1.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2025-1" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2025-1.jpg"></div>
+      <div class="photo tall"><img src="assets/photos/m/2025-2.jpg" srcset="assets/photos/m/2025-2.jpg 760w, assets/photos/2025-2.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2025-2" width="508" height="760" loading="lazy" decoding="async" data-full="assets/photos/2025-2.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2025-3.jpg" srcset="assets/photos/m/2025-3.jpg 760w, assets/photos/2025-3.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2025-3" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2025-3.jpg"></div>
+      <div class="photo wide"><img src="assets/photos/m/2025-4.jpg" srcset="assets/photos/m/2025-4.jpg 760w, assets/photos/2025-4.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2025-4" width="760" height="507" loading="lazy" decoding="async" data-full="assets/photos/2025-4.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2025-5.jpg" srcset="assets/photos/m/2025-5.jpg 760w, assets/photos/2025-5.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2025-5" width="760" height="570" loading="lazy" decoding="async" data-full="assets/photos/2025-5.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2025-6.jpg" srcset="assets/photos/m/2025-6.jpg 760w, assets/photos/2025-6.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2025-6" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2025-6.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2025-7.jpg" srcset="assets/photos/m/2025-7.jpg 760w, assets/photos/2025-7.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2025-7" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2025-7.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2025-8.jpg" srcset="assets/photos/m/2025-8.jpg 760w, assets/photos/2025-8.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2025-8" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2025-8.jpg"></div>
+      <div class="photo wide"><img src="assets/photos/m/2025-9.jpg" srcset="assets/photos/m/2025-9.jpg 760w, assets/photos/2025-9.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2025-9" width="760" height="554" loading="lazy" decoding="async" data-full="assets/photos/2025-9.jpg"></div>
     </div>
   </div>
 
   <div class="year-block reveal d1">
     <div class="year-head"><span class="year-num">2024</span><span class="year-desc">更早的那一年，故事还没被写成现在这样。</span></div>
     <div class="photo-grid">
-      <div class="photo"><img src="assets/photos/2024-1.jpg" alt="2024-1" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2024-2.jpg" alt="2024-2" loading="lazy"></div>
-      <div class="photo wide"><img src="assets/photos/2024-3.jpg" alt="2024-3" loading="lazy"></div>
-      <div class="photo tall"><img src="assets/photos/2024-4.jpg" alt="2024-4" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2024-5.jpg" alt="2024-5" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2024-6.jpg" alt="2024-6" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2024-7.jpg" alt="2024-7" loading="lazy"></div>
-      <div class="photo"><img src="assets/photos/2024-8.jpg" alt="2024-8" loading="lazy"></div>
+      <div class="photo"><img src="assets/photos/m/2024-1.jpg" srcset="assets/photos/m/2024-1.jpg 760w, assets/photos/2024-1.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2024-1" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2024-1.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2024-2.jpg" srcset="assets/photos/m/2024-2.jpg 760w, assets/photos/2024-2.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2024-2" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2024-2.jpg"></div>
+      <div class="photo wide"><img src="assets/photos/m/2024-3.jpg" srcset="assets/photos/m/2024-3.jpg 760w, assets/photos/2024-3.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2024-3" width="760" height="570" loading="lazy" decoding="async" data-full="assets/photos/2024-3.jpg"></div>
+      <div class="photo tall"><img src="assets/photos/m/2024-4.jpg" srcset="assets/photos/m/2024-4.jpg 760w, assets/photos/2024-4.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2024-4" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2024-4.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2024-5.jpg" srcset="assets/photos/m/2024-5.jpg 760w, assets/photos/2024-5.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2024-5" width="580" height="760" loading="lazy" decoding="async" data-full="assets/photos/2024-5.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2024-6.jpg" srcset="assets/photos/m/2024-6.jpg 760w, assets/photos/2024-6.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2024-6" width="570" height="760" loading="lazy" decoding="async" data-full="assets/photos/2024-6.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2024-7.jpg" srcset="assets/photos/m/2024-7.jpg 760w, assets/photos/2024-7.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2024-7" width="760" height="570" loading="lazy" decoding="async" data-full="assets/photos/2024-7.jpg"></div>
+      <div class="photo"><img src="assets/photos/m/2024-8.jpg" srcset="assets/photos/m/2024-8.jpg 760w, assets/photos/2024-8.jpg 1600w" sizes="(max-width:700px) 48vw, 24vw" alt="2024-8" width="680" height="760" loading="lazy" decoding="async" data-full="assets/photos/2024-8.jpg"></div>
     </div>
   </div>
 </section>
@@ -1421,8 +1439,13 @@ html.gate-locked, html.gate-locked body { overflow:hidden; }
         countEl=document.getElementById('lbCount');
   const photos=Array.from(document.querySelectorAll('#gallery .photo img'));
   let idx=0;
+  function bestSrc(el){
+    /* 大屏用原图，手机用已经下好的小图，避免二次下载 */
+    if(innerWidth>=900 && el.dataset.full) return el.dataset.full;
+    return el.currentSrc || el.src;
+  }
   function open(i){
-    idx=i; img.src=photos[idx].src;
+    idx=i; img.src=bestSrc(photos[idx]);
     countEl.textContent=(idx+1)+' / '+photos.length;
     box.classList.add('open'); document.body.style.overflow='hidden';
   }
@@ -1651,6 +1674,18 @@ window.addEventListener('load',()=>{
     card.addEventListener('mouseleave',()=>{
       card.style.transform='';
     });
+  });
+})();
+
+/* ================================================================
+   13.5 照片加载完成 → 关掉骨架微光
+   ================================================================ */
+(function(){
+  document.querySelectorAll('#gallery .photo img').forEach(img=>{
+    const box=img.parentElement;
+    const done=()=>box.classList.add('loaded');
+    if(img.complete&&img.naturalWidth>0) done();
+    else img.addEventListener('load',done,{once:true});
   });
 })();
 
