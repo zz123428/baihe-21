@@ -1684,10 +1684,14 @@ window.addEventListener('load',()=>{
   document.querySelectorAll('#gallery .photo img').forEach(img=>{
     const box=img.parentElement;
     const done=()=>box.classList.add('loaded');
-    if(img.complete&&img.naturalWidth>0) done();
-    else img.addEventListener('load',done,{once:true});
-    /* 加载失败时隐藏破图图标，保留骨架微光，不会露出 alt 文字 */
-    img.addEventListener('error',()=>{ img.style.display='none'; },{once:true});
+    if(img.complete){
+      if(img.naturalWidth>0) done();
+      else img.style.display='none';   /* 脚本执行前就已失败 */
+    }else{
+      img.addEventListener('load',done,{once:true});
+      /* 加载失败时隐藏破图图标，保留骨架微光，不露出 alt 文字 */
+      img.addEventListener('error',()=>{ img.style.display='none'; },{once:true});
+    }
   });
 })();
 
